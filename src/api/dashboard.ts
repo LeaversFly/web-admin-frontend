@@ -20,3 +20,11 @@ export interface PopularRecord {
 export function queryPopularList(params: { type: string }) {
   return axios.get<TableData[]>('/api/popular/list', { params });
 }
+
+export function getFileListCount() {
+  return axios.get<number>('/file/count');
+}
+
+export function getValidFileCount() {
+  return axios.get<number>('/file/valid/count');
+}
