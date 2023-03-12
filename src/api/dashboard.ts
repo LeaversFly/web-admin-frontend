@@ -28,3 +28,11 @@ export function getFileListCount() {
 export function getValidFileCount() {
   return axios.get<number>('/file/valid/count');
 }
+
+export function getYesterdayCount() {
+  return axios.get<number>('/file/yesterday');
+}
+
+export function getUserCount() {
+  return axios.get<number>('/user/all/count')
+}
