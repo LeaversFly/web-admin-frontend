@@ -36,3 +36,7 @@ export function getYesterdayCount() {
 export function getUserCount() {
   return axios.get<number>('/user/all/count')
 }
+
+export function get8DaysFileCount() {
+  return axios.get<ContentDataRecord[]>('/file/8DaysCount')
+}
