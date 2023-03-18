@@ -15,7 +15,7 @@
 import { ref } from 'vue';
 import { graphic } from 'echarts';
 import useLoading from '@/hooks/loading';
-import { queryContentData, ContentDataRecord, get8DaysFileCount } from '@/api/dashboard';
+import { ContentDataRecord, get8DaysFileCount } from '@/api/dashboard';
 import useChartOption from '@/hooks/chart-option';
 import { ToolTipFormatterParams } from '@/types/echarts';
 import { AnyObject } from '@/types/global';
@@ -111,7 +111,7 @@ const { chartOption } = useChartOption(() => {
         const [firstElement] = params as ToolTipFormatterParams[];
         return `<div>
             <p class="tooltip-title">${firstElement.axisValueLabel}</p>
-            <div class="content-panel"><span>总内容量</span><span class="tooltip-value">${(
+            <div class="content-panel"><span>新增文件数</span><span class="tooltip-value">${(
             Number(firstElement.value)
           ).toLocaleString()}</span></div>
           </div>`;
