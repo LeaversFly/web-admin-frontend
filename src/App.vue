@@ -62,7 +62,7 @@
 import { House, Setting, Tickets, DocumentCopy, Medal, Bell } from '@element-plus/icons-vue'
 </script>
 
-<style scoped>
+<style lang="scss">
 .el-menu {
   border-right: none;
 }
