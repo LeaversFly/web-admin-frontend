@@ -77,7 +77,6 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
 import { UploadFilled } from '@element-plus/icons-vue'
 
 const form = reactive({

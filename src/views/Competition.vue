@@ -43,7 +43,6 @@
 
 <script setup>
 import { UploadFilled } from '@element-plus/icons-vue'
-import { reactive } from 'vue'
 
 const form = reactive({
     name: '',

@@ -55,7 +55,6 @@ import {
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import axios from 'axios'
-import { onMounted, ref } from 'vue';
 import moment from 'moment'
 
 // 注册必须的组件

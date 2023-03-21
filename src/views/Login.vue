@@ -75,7 +75,6 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
-import { reactive, ref } from 'vue'
 
 const router = useRouter();
 //是否是登录状态（用于区分什么时候展示登入、注册页面）

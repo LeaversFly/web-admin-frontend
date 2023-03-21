@@ -50,8 +50,6 @@
 </template>
   
 <script setup>
-import { ref } from 'vue'
-
 const activeNames = ref(['1'])
 const handleChange = (val) => {
     console.log(val)
