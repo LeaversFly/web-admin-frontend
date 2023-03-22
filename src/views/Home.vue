@@ -2,7 +2,7 @@
     <div class="row">
         <span class="people">
             <h3>用户信息
-                <el-divider direction="vertical" />已注册:{{userData.length}}
+                <el-divider direction="vertical" />已注册:{{ userData.length }}
             </h3>
             <el-table :data="userData" height="400" style="width: 100%;">
                 <el-table-column prop="username" label="用户名" width="180" />
@@ -12,7 +12,7 @@
         </span>
         <span class="people">
             <h3>队伍信息
-                <el-divider direction="vertical" />队伍数:{{teamData.length}}
+                <el-divider direction="vertical" />队伍数:{{ teamData.length }}
             </h3>
             <el-table :data="teamData" height="400" style="width: 100%;">
                 <el-table-column prop="teamName" label="队名" width="180" />
@@ -25,7 +25,7 @@
     <div class="row">
         <span class="comment">
             <h3>评分信息
-                <el-divider direction="vertical" />已评分:{{commentData.length}}
+                <el-divider direction="vertical" />已评分:{{ commentData.length }}
             </h3>
             <el-table :data="commentData" height="400" style="width: 100%;">
                 <el-table-column prop="username" label="用户名" />
@@ -42,7 +42,6 @@
 </template>
 
 <script setup>
-// 按需引入
 import * as echarts from 'echarts/core';
 import { BarChart } from 'echarts/charts';
 import {
@@ -54,8 +53,7 @@ import {
 } from 'echarts/components';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
-import axios from 'axios'
-import moment from 'moment'
+import { get8DaysFileCount } from '../api/file';
 
 // 注册必须的组件
 echarts.use([
@@ -70,80 +68,55 @@ echarts.use([
     CanvasRenderer
 ]);
 
-let url = 'http://150.158.164.18:9067'
-let url_dev = 'http://127.0.0.1:8000'
 let userData = ref([])
 let teamData = ref([])
 let commentData = ref([])
 let xData = ref([])
 let yData = ref([])
 
+get8DaysFileCount()
 
-// 获取所有用户
-const getUserData = () => {
-    axios.get(url + '/user/all').then((res) => {
-        const { data } = res.data
-        userData.value = data
-    })
-}
+// // 获取平均分
+// function getScore(myChart) {
+//     axios.get(url + '/getScoreSummary').then((res) => {
+//         let { data } = res.data
+//         let keyArr = Object.keys(data).sort((a, b) => {
+//             return data[b] - data[a];   //降序
+//         });
+//         xData.value = keyArr
+//         for (let key of keyArr) {
+//             yData.value.push(data[key])
+//         }
+//         myChart.setOption({
+//             title: {
+//                 text: `作品评分统计 | 已参与作品数${keyArr.length}`
+//             },
+//             tooltip: {},
+//             xAxis: {
+//                 data: xData.value
+//             },
+//             yAxis: {},
+//             series: [
+//                 {
+//                     name: '作品id | 平均分',
+//                     type: 'bar',
+//                     data: yData.value
+//                 }
+//             ]
+//         });
+//     })
+// }
 
-// 获取所有队伍
-const getTeamData = () => {
-    axios.get(url + '/user/team/all').then((res) => {
-        const { data } = res.data
-        teamData.value = data.map((item) => item = { ...item, leader: item.teamMember.split(',')[0] })
-    })
-}
+// onMounted(() => {
+//     // 初始化图表
+//     const myChart = echarts.init(document.getElementById('score'));
 
-// 获取所有用户
-const getCommentData = () => {
-    axios.get(url+ '/comments/all').then((res) => {
-        const { data } = res.data
-        commentData.value = data.map((item) => item = { ...item, commentDate: moment(item.commentDate).format("YYYY-MM-DD HH:mm:ss") })
-    })
-}
-
-// 获取平均分
-const getScore = (myChart) => {
-    axios.get(url + '/getScoreSummary').then((res) => {
-        let { data } = res.data
-        let keyArr = Object.keys(data).sort((a, b) => {
-            return data[b] - data[a];   //降序
-        });
-        xData.value = keyArr
-        for (let key of keyArr) {
-            yData.value.push(data[key])
-        }
-        myChart.setOption({
-            title: {
-                text: `作品评分统计 | 已参与作品数${keyArr.length}`
-            },
-            tooltip: {},
-            xAxis: {
-                data: xData.value
-            },
-            yAxis: {},
-            series: [
-                {
-                    name: '作品id | 平均分',
-                    type: 'bar',
-                    data: yData.value
-                }
-            ]
-        });
-    })
-}
-
-onMounted(() => {
-    // 初始化图表
-    const myChart = echarts.init(document.getElementById('score'));
-
-    // 获取数据
-    getUserData()
-    getTeamData()
-    getCommentData()
-    getScore(myChart)
-})
+//     // 获取数据
+//     getUserData()
+//     getTeamData()
+//     getCommentData()
+//     getScore(myChart)
+// })
 
 </script>
 
