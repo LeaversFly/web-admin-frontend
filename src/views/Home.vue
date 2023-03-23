@@ -74,49 +74,44 @@ let commentData = ref([])
 let xData = ref([])
 let yData = ref([])
 
-get8DaysFileCount()
+// 获取平均分
+async function getScore(myChart) {
+    let data = await get8DaysFileCount()
+    for (let i of data) {
+        xData.value.push(i['x'])
+        yData.value.push(i['y'])
+    }
+    console.log(xData.value);
+    console.log(yData.value);
+    myChart.setOption({
+        title: {
+            text: '近期上传文件数'
+        },
+        tooltip: {},
+        xAxis: {
+            data: xData.value
+        },
+        yAxis: {
+            minInterval: 10,
+            axisLabel: {
+                formatter: '{value}'
+            }
+        },
+        series: [
+            {
+                name: '数量',
+                type: 'bar',
+                data: yData.value
+            }
+        ]
+    });
+}
 
-// // 获取平均分
-// function getScore(myChart) {
-//     axios.get(url + '/getScoreSummary').then((res) => {
-//         let { data } = res.data
-//         let keyArr = Object.keys(data).sort((a, b) => {
-//             return data[b] - data[a];   //降序
-//         });
-//         xData.value = keyArr
-//         for (let key of keyArr) {
-//             yData.value.push(data[key])
-//         }
-//         myChart.setOption({
-//             title: {
-//                 text: `作品评分统计 | 已参与作品数${keyArr.length}`
-//             },
-//             tooltip: {},
-//             xAxis: {
-//                 data: xData.value
-//             },
-//             yAxis: {},
-//             series: [
-//                 {
-//                     name: '作品id | 平均分',
-//                     type: 'bar',
-//                     data: yData.value
-//                 }
-//             ]
-//         });
-//     })
-// }
-
-// onMounted(() => {
-//     // 初始化图表
-//     const myChart = echarts.init(document.getElementById('score'));
-
-//     // 获取数据
-//     getUserData()
-//     getTeamData()
-//     getCommentData()
-//     getScore(myChart)
-// })
+onMounted(() => {
+    // 初始化图表
+    const myChart = echarts.init(document.getElementById('score'));
+    getScore(myChart)
+})
 
 </script>
 

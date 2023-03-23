@@ -8,7 +8,6 @@ axios.defaults.timeout = import.meta.env.VITE_TIMEOUT
 // 请求拦截器
 axios.interceptors.request.use(
     (config) => {
-        console.log(config);
         return config
     },
     (error) => Promise.reject(error)
@@ -19,7 +18,7 @@ axios.interceptors.response.use(
     (response) => {
         const { code, data, message } = response.data
         switch (code) {
-            case 200:
+            case 20000:
                 return data
             default:
                 return Promise.reject(message)
