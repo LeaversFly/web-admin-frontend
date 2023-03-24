@@ -1,11 +1,11 @@
 <template>
-    <div class="header">
-        <div class="logo-title">
-            <img src="/logo.png">
-            <span>竞赛后台管理系统</span>
+        <div class="header">
+            <div class="logo-title">
+                <img src="/logo.png">
+                <span>竞赛后台管理系统</span>
+            </div>
+            <div @click="goLogin">登录</div>
         </div>
-        <div @click="goLogin">登录</div>
-    </div>
 </template>
 
 <script setup>

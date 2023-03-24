@@ -81,8 +81,6 @@ async function getScore(myChart) {
         xData.value.push(i['x'])
         yData.value.push(i['y'])
     }
-    console.log(xData.value);
-    console.log(yData.value);
     myChart.setOption({
         title: {
             text: '近期上传文件数'
