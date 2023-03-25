@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <span class="people">
+        <span class="row-item">
             <h3>用户信息
                 <el-divider direction="vertical" />已注册:{{ userData.length }}
             </h3>
@@ -10,7 +10,7 @@
                 <el-table-column prop="email" label="邮箱" />
             </el-table>
         </span>
-        <span class="people">
+        <span class="row-item">
             <h3>队伍信息
                 <el-divider direction="vertical" />队伍数:{{ teamData.length }}
             </h3>
@@ -19,20 +19,6 @@
                 <el-table-column prop="leader" label="队长" />
                 <el-table-column prop="teamMember" label="队伍成员" />
                 <el-table-column prop="id" label="队伍id" />
-            </el-table>
-        </span>
-    </div>
-    <div class="row">
-        <span class="comment">
-            <h3>评分信息
-                <el-divider direction="vertical" />已评分:{{ commentData.length }}
-            </h3>
-            <el-table :data="commentData" height="400" style="width: 100%;">
-                <el-table-column prop="username" label="用户名" />
-                <el-table-column prop="commentText" label="评论" />
-                <el-table-column prop="commentDate" label="评论时间" />
-                <el-table-column prop="score" label="分数" />
-                <el-table-column prop="articleId" label="作品id" />
             </el-table>
         </span>
     </div>
@@ -113,7 +99,7 @@ onMounted(() => {
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 h3 {
     padding: 0 16px;
 }
@@ -122,26 +108,27 @@ h3 {
     display: flex;
     justify-content: space-around;
     margin: 16px 0;
-}
+    width: 100%;
 
-.people {
-    width: 48%;
-}
+    .row-item {
+        width: 48%;
+        padding: 8px;
 
-.comment {
-    width: 98%;
-}
+        background-color: #fff;
+        border: 0.5px solid #e0e0e0;
+        box-shadow: 0 2px 10px 0 rgba(0 0 0 / 5%);
+        border-radius: 12px;
+    }
 
-#score {
-    width: 98%;
-    height: 400px;
-}
+    #score {
+        width: 98%;
+        height: 480px;
+        margin: 0 auto;
+        padding: 8px;
 
-.people,
-#score,
-.comment {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 10px 0 rgba(0 0 0 / 5%);
+        border: 0.5px solid #e0e0e0;
+        box-shadow: 0 2px 10px 0 rgba(0 0 0 / 5%);
+        border-radius: 12px;
+    }
 }
 </style>

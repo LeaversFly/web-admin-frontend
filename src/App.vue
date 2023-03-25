@@ -58,14 +58,13 @@ const isExpand = ref(true)
 .sider {
   width: 220px;
   height: 100vh;
-  background-color: #ddd;
   position: relative;
+  background-color: #f8f8f8;
 
   flex-shrink: 0;
 
   .sider-top {
     height: 50px;
-    background-color: #bfa;
 
     display: flex;
     align-items: center;
@@ -81,12 +80,9 @@ const isExpand = ref(true)
     right: 0;
     bottom: 0;
 
-    background-color: pink;
-
     .li-item {
       height: 50px;
       margin: 10px;
-      background-color: grey;
       color: #fff;
 
       display: flex;
@@ -106,8 +102,6 @@ const isExpand = ref(true)
   .main-header {
     .main-header-top {
       height: 50px;
-      background: skyblue;
-
       display: flex;
       align-items: center;
       padding: 0 10px;
@@ -130,8 +124,6 @@ const isExpand = ref(true)
           height: 26px;
           margin-right: 10px;
 
-          background-color: #fff;
-
           flex-shrink: 0;
 
           display: flex;
@@ -148,14 +140,12 @@ const isExpand = ref(true)
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgb(211, 228, 243);
 
     .main-content-wrapper {
       overflow: auto;
       box-sizing: border-box;
       width: 100%;
       height: 100%;
-      padding: 20px;
       background-clip: content-box;
 
       .content {
@@ -165,7 +155,7 @@ const isExpand = ref(true)
         background-color: #fff;
         border-radius: 8px;
 
-        padding: 10px 0 10px 10px;
+        padding: 0 0 0 10px;
         box-sizing: border-box;
       }
     }
