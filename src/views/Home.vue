@@ -2,23 +2,27 @@
     <div class="row">
         <span class="row-item">
             <h3>用户信息
-                <el-divider direction="vertical" />已注册:{{ userData.length }}
+                <el-divider direction="vertical" />总人数:{{ userData.length }}
             </h3>
             <el-table :data="userData" height="400" style="width: 100%;">
-                <el-table-column prop="username" label="用户名" width="180" />
-                <el-table-column prop="teamId" label="队伍id" />
-                <el-table-column prop="email" label="邮箱" />
+                <el-table-column prop="id" label="用户id" width="180" />
+                <el-table-column prop="theme" label="主题" />
+                <el-table-column prop="remain" label="剩余次数" />
+                <el-table-column prop="ip_addr" label="ip地址" />
             </el-table>
         </span>
         <span class="row-item">
-            <h3>队伍信息
-                <el-divider direction="vertical" />队伍数:{{ teamData.length }}
+            <h3>文件信息
+                <el-divider direction="vertical" />文件数:{{ fileData.length }}
             </h3>
-            <el-table :data="teamData" height="400" style="width: 100%;">
-                <el-table-column prop="teamName" label="队名" width="180" />
-                <el-table-column prop="leader" label="队长" />
-                <el-table-column prop="teamMember" label="队伍成员" />
-                <el-table-column prop="id" label="队伍id" />
+            <el-table lazy :data="fileData" height="400" style="width: 100%;">
+                <el-table-column prop="id" label="文件id" width="180" />
+                <el-table-column prop="user_id" label="所属用户id" />
+                <el-table-column prop="folder" label="文件夹名" />
+                <el-table-column prop="send_time" label="上传时间" />
+                <el-table-column prop="code" label="取件码" />
+                <el-table-column prop="remain" label="剩余次数" />
+                <el-table-column prop="validity" label="有效性" />
             </el-table>
         </span>
     </div>
@@ -39,7 +43,8 @@ import {
 } from 'echarts/components';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
-import { get8DaysFileCount } from '../api/file';
+import { getFileData, get8DaysFileCount } from '../api/file';
+import { getUserData } from '../api/user'
 
 // 注册必须的组件
 echarts.use([
@@ -55,13 +60,12 @@ echarts.use([
 ]);
 
 let userData = ref([])
-let teamData = ref([])
-let commentData = ref([])
+let fileData = ref([])
 let xData = ref([])
 let yData = ref([])
 
-// 获取平均分
-async function getScore(myChart) {
+// 获取近七日上传文件数
+const getScore = async (myChart) => {
     let data = await get8DaysFileCount()
     for (let i of data) {
         xData.value.push(i['x'])
@@ -91,12 +95,13 @@ async function getScore(myChart) {
     });
 }
 
-onMounted(() => {
+onMounted(async () => {
     // 初始化图表
     const myChart = echarts.init(document.getElementById('score'));
     getScore(myChart)
+    userData.value = await getUserData()
+    fileData.value = await getFileData()
 })
-
 </script>
 
 <style lang="scss" scoped>

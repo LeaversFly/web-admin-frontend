@@ -9,7 +9,7 @@
       </div>
       <div class="sider-body">
         <el-scrollbar>
-          <sidebar />
+          <sidebar :isExpand="isExpand" />
         </el-scrollbar>
       </div>
     </div>
@@ -59,6 +59,8 @@ const isExpand = ref(true)
   width: 220px;
   height: 100vh;
   position: relative;
+
+  border-right: 2px solid #f3f3f3;
   background-color: #f8f8f8;
 
   flex-shrink: 0;
