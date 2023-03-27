@@ -97,13 +97,13 @@ const getScore = async (myChart) => {
 }
 
 onMounted(async () => {
-    // 初始化图表
-    // const myChart = echarts.init(document.getElementById('score'));
-    // getScore(myChart)
-    // message({ message: '你好', type: 'success' })
     message({ message: '你好', type: 'success' })
-    // userData.value = await getUserData()
-    // fileData.value = await getFileData()
+    // 初始化图表
+    const myChart = echarts.init(document.getElementById('score'));
+    getScore(myChart)
+    const res = await Promise.all([getUserData(), getFileData()])
+    userData.value = res[0]
+    fileData.value = res[1]
 })
 </script>
 
