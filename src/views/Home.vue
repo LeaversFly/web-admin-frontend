@@ -45,6 +45,7 @@ import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { getFileData, get8DaysFileCount } from '../api/file';
 import { getUserData } from '../api/user'
+import { message } from '../utils/message';
 
 // 注册必须的组件
 echarts.use([
@@ -97,10 +98,12 @@ const getScore = async (myChart) => {
 
 onMounted(async () => {
     // 初始化图表
-    const myChart = echarts.init(document.getElementById('score'));
-    getScore(myChart)
-    userData.value = await getUserData()
-    fileData.value = await getFileData()
+    // const myChart = echarts.init(document.getElementById('score'));
+    // getScore(myChart)
+    // message({ message: '你好', type: 'success' })
+    message({ message: '你好', type: 'success' })
+    // userData.value = await getUserData()
+    // fileData.value = await getFileData()
 })
 </script>
 
