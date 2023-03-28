@@ -1,22 +1,22 @@
 <template>
-    <el-menu default-active="/" class="el-menu-vertical-demo" router>
+    <el-menu :default-active="$route.path" class="el-menu-vertical-demo" router>
         <el-menu-item index="/">
             <el-icon>
                 <Odometer />
             </el-icon>
             <span v-if="isExpand">首页</span>
         </el-menu-item>
-        <el-menu-item index="/setting">
+        <el-menu-item index="/authority">
             <el-icon>
-                <Setting />
+                <Avatar />
             </el-icon>
-            <span v-if="isExpand">权限设置</span>
+            <span v-if="isExpand">权限管理</span>
         </el-menu-item>
     </el-menu>
 </template>
 
 <script setup>
-import { Odometer, Setting } from '@element-plus/icons-vue'
+import { Odometer, Avatar } from '@element-plus/icons-vue'
 
 const props = defineProps(['isExpand'])
 </script>
