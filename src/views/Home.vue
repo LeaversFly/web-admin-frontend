@@ -44,8 +44,8 @@ import {
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { getFileData, get8DaysFileCount } from '../api/file';
-import { getUserData } from '../api/user'
-import { message } from '../utils/message';
+import useStore from '../store'
+import { storeToRefs } from 'pinia';
 
 // 注册必须的组件
 echarts.use([
@@ -60,8 +60,10 @@ echarts.use([
     CanvasRenderer
 ]);
 
-let userData = ref([])
-let fileData = ref([])
+const { userStore } = useStore()
+
+const { userData } = storeToRefs(userStore)
+const fileData = ref([])
 let xData = ref([])
 let yData = ref([])
 
@@ -96,14 +98,15 @@ const getScore = async (myChart) => {
     });
 }
 
+userStore.setUserData()
+
 onMounted(async () => {
-    message({ message: '你好', type: 'success' })
     // 初始化图表
     const myChart = echarts.init(document.getElementById('score'));
     getScore(myChart)
-    const res = await Promise.all([getUserData(), getFileData()])
-    userData.value = res[0]
-    fileData.value = res[1]
+
+    const res = await getFileData()
+    fileData.value = res
 })
 </script>
 
