@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <el-table :data="userData" style="width: 100%">
+        <el-table :data="filterData" style="width: 100%">
             <el-table-column label="用户id" prop="id" />
             <el-table-column label="剩余次数" prop="remain" />
             <el-table-column label="主题" prop="theme" />
@@ -10,7 +10,7 @@
                     <el-input v-model="search" size="small" placeholder="点击搜索..." />
                 </template>
                 <template #default="scope">
-                    <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">禁用</el-button>
+                    <el-button size="small" type="danger" @click="handleForbiden(scope.$index, scope.row)">禁用</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -25,8 +25,19 @@ const { userStore } = useStore()
 
 const { userData } = storeToRefs(userStore)
 const search = ref('')
+const filterData = computed(() =>
+    userData.value.filter(
+        (item) =>
+            !search.value ||
+            item.id.toString().includes(search.value) ||
+            item.ip_addr.includes(search.value)
+    )
+)
 
-const handleDelete = (index, row) => {
+userStore.setUserData()
+
+// 点击禁用
+const handleForbiden = (index, row) => {
     console.log(index, row)
 }
 </script>
