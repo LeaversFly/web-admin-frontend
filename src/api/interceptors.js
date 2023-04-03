@@ -1,4 +1,5 @@
 import axios from "axios";
+import { messageBox } from '../utils/message'
 
 export const baseURL = import.meta.env.VITE_BASE_API
 
@@ -10,7 +11,10 @@ axios.interceptors.request.use(
     (config) => {
         return config
     },
-    (error) => Promise.reject(error)
+    (error) => {
+        messageBox({ message: '请求出错', type: 'error' })
+        Promise.reject(error)
+    }
 );
 
 // 响应拦截器
@@ -21,10 +25,12 @@ axios.interceptors.response.use(
             case 20000:
                 return data
             default:
+                messageBox({ message, type: 'error' })
                 return Promise.reject(message)
         }
     },
     (error) => {
+        messageBox({ message: '请求出错', type: 'error' })
         return Promise.reject(error)
     }
 );
