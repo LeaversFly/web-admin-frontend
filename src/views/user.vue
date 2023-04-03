@@ -5,17 +5,25 @@
             <el-table-column label="用户id" prop="id" />
             <el-table-column label="剩余次数">
                 <template #default="scoped">
-                    {{ scoped.row.remain }}
-                    <el-icon :class="isShowEdit(scoped.row.id)">
+                    <span v-if="!isShowInput(scoped.row.id)">
+                        {{ scoped.row.remain }}
+                    </span>
+                    <el-input-number size="small" v-model="scoped.row.remain" :min="0" :max="5" v-else />
+                    <el-icon v-if="!isShowInput(scoped.row.id)" :class="isShowEdit(scoped.row.id)"
+                        @click="showInput(scoped.row.id)">
                         <Edit />
                     </el-icon>
+                    <span class="btns" v-else>
+                        <el-button type="primary" size="small"
+                            @click="submit(scoped.row.id, scoped.row.remain)">确定</el-button>
+                    </span>
                 </template>
             </el-table-column>
             <el-table-column label="主题" prop="theme" />
             <el-table-column label="ip地址" prop="ip_addr" />
             <el-table-column align="right">
                 <template #header>
-                    <el-input v-model="search" size="small" placeholder="点击搜索..." />
+                    <el-input v-model="search" size="small" placeholder="点击搜索...(id / ip地址)" />
                 </template>
             </el-table-column>
         </el-table>
@@ -26,9 +34,13 @@
 import { Edit } from '@element-plus/icons-vue'
 import { storeToRefs } from 'pinia';
 import useStore from '../store'
+import { updateRemainById } from '../api/user'
+import { messageBox } from '../utils/message';
 
 const { userStore } = useStore()
+userStore.setUserData()
 
+// 根据关键词过滤
 const { userData } = storeToRefs(userStore)
 const search = ref('')
 const filterData = computed(() =>
@@ -39,13 +51,20 @@ const filterData = computed(() =>
             item.ip_addr.includes(search.value)
     )
 )
+
+// 悬停鼠标显示编辑按钮
 const hoverIndex = ref(-1)
 const isShowEdit = computed(() =>
     (id) =>
         hoverIndex.value === id ? 'edit-show' : 'edit-hidden'
 )
 
-userStore.setUserData()
+// 点击编辑出现输入框
+const isEdit = ref(false)
+const id = ref(0)
+const isShowInput = computed(() =>
+    (index) => isEdit.value && id.value === index
+)
 
 const handleMouseEnter = (e) => {
     hoverIndex.value = e.id
@@ -53,6 +72,19 @@ const handleMouseEnter = (e) => {
 
 const handleMouseLeave = () => {
     hoverIndex.value = -1
+}
+
+const showInput = (index) => {
+    id.value = index;
+    isEdit.value = true
+}
+
+const submit = async (id, remain) => {
+    isEdit.value = false
+    let res = await updateRemainById({ id, remain })
+    if (res) {
+        messageBox({ message: '修改成功', type: 'success' })
+    }
 }
 </script>
 
@@ -67,7 +99,7 @@ const handleMouseLeave = () => {
 
     .edit-show {
         display: inline-block;
-        margin-left: 40px;
+        margin-left: 30px;
 
         font-size: medium;
         color: #409eff;
@@ -76,6 +108,10 @@ const handleMouseLeave = () => {
 
     .edit-hidden {
         display: none;
+    }
+
+    .btns {
+        margin-left: 15px;
     }
 }
 </style>

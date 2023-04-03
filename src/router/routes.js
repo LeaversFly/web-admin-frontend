@@ -4,13 +4,17 @@ const routes = [
         component: () => import('../views/home.vue')
     },
     {
-        path: '/authority',
-        component: () => import('../views/authority.vue')
+        path: '/user',
+        component: () => import('../views/user.vue')
+    },
+    {
+        path: '/file',
+        component: () => import('../views/file.vue')
     },
     {
         path: '/login',
         meta: { show: true },
-        component: () => import('../views/Login.vue')
+        component: () => import('../views/login.vue')
     },
 ]
 
