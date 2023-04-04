@@ -27,6 +27,7 @@
                 </template>
             </el-table-column>
         </el-table>
+        <el-pagination background layout="prev, pager, next" :total="100" class="pagination" v-if="isShowPager" />
     </div>
 </template>
 
@@ -65,6 +66,10 @@ const id = ref(0)
 const isShowInput = computed(() =>
     (index) => isEdit.value && id.value === index
 )
+
+// 分页器
+const total = ref(11)
+const isShowPager = computed(() => total.value > 10)
 
 const handleMouseEnter = (e) => {
     hoverIndex.value = e.id

@@ -11,3 +11,10 @@ body {
   --el-border-radius-base: 12px !important;
   box-shadow: 0 0 6px rgba(0, 0, 0, .2);
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 10px 0;
+}
