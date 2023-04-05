@@ -43,7 +43,7 @@ import {
 } from 'echarts/components';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
-import { getFileData, get8DaysFileCount } from '../api/file';
+import { get8DaysFileCount } from '../api/file';
 import useStore from '../store'
 import { storeToRefs } from 'pinia';
 
@@ -60,10 +60,13 @@ echarts.use([
     CanvasRenderer
 ]);
 
-const { userStore } = useStore()
+const { userStore, fileStore } = useStore()
+
+userStore.setUserData()
+fileStore.setFileData({ pageNum: 1, pageSize: 10 })
 
 const { userData } = storeToRefs(userStore)
-const fileData = ref([])
+const { fileData } = storeToRefs(fileStore)
 let xData = ref([])
 let yData = ref([])
 
@@ -98,15 +101,10 @@ const getScore = async (myChart) => {
     });
 }
 
-userStore.setUserData()
-
 onMounted(async () => {
     // 初始化图表
     const myChart = echarts.init(document.getElementById('score'));
     getScore(myChart)
-
-    const res = await getFileData()
-    fileData.value = res
 })
 </script>
 

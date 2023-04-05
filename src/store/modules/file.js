@@ -8,8 +8,8 @@ export default defineStore('file', {
         }
     },
     actions: {
-        async setFileData() {
-            this.fileData = await getFileData()
+        async setFileData(data) {
+            this.fileData = await getFileData(data)
         }
     },
     getters: {

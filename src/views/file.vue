@@ -29,7 +29,7 @@ import { storeToRefs } from 'pinia';
 import useStore from '../store';
 
 const { fileStore } = useStore()
-fileStore.setFileData()
+fileStore.setFileData({ pageNum: 1, pageSize: 10 })
 
 const { fileData } = storeToRefs(fileStore)
 const search = ref('')
