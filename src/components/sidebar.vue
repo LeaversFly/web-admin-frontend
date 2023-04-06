@@ -14,7 +14,7 @@
         </el-menu-item>
         <el-menu-item index="/file">
             <el-icon>
-                <Avatar />
+                <Files />
             </el-icon>
             <span v-if="isExpand">文件管理</span>
         </el-menu-item>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { Odometer, Avatar } from '@element-plus/icons-vue'
+import { Odometer, Avatar, Files } from '@element-plus/icons-vue'
 
 const props = defineProps(['isExpand'])
 </script>
