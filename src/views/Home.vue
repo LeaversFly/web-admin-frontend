@@ -13,7 +13,7 @@
         </span>
         <span class="row-item">
             <h3>文件信息
-                <el-divider direction="vertical" />文件数:{{ fileData.length }}
+                <el-divider direction="vertical" />文件数:{{ fileSum }}
             </h3>
             <el-table lazy :data="fileData" height="400" style="width: 100%;">
                 <el-table-column prop="id" label="文件id" width="180" />
@@ -63,10 +63,11 @@ echarts.use([
 const { userStore, fileStore } = useStore()
 
 userStore.setUserData()
+fileStore.setFileSum()
 fileStore.setFileData({ pageNum: 1, pageSize: 10 })
 
 const { userData } = storeToRefs(userStore)
-const { fileData } = storeToRefs(fileStore)
+const { fileData, fileSum } = storeToRefs(fileStore)
 let xData = ref([])
 let yData = ref([])
 
