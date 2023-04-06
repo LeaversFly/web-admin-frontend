@@ -7,31 +7,30 @@
             <el-table-column label="上传时间" prop="send_time" />
             <el-table-column label="取件码" prop="code" />
             <el-table-column label="剩余次数" prop="remain" />
-            <el-table-column label="有效性" prop="validity">
-                <!-- <template #default="scoped">
-                    <span v-if="!isShowInput(scoped.row.id)">
-                        {{ scoped.row.remain }}
-                    </span>
-                </template> -->
-            </el-table-column>
+            <el-table-column label="有效性" prop="validity" />
             <el-table-column align="right">
                 <template #header>
                     <el-input v-model="search" size="small" placeholder="点击搜索...(取件码)" />
                 </template>
             </el-table-column>
         </el-table>
-        <el-pagination background layout="prev, pager, next" :total="100" class="pagination" />
+        <el-pagination background layout="prev, pager, next" :total="fileSum" class="pagination"
+            @current-change="switchPage" />
     </div>
 </template>
 
 <script setup>
 import { storeToRefs } from 'pinia';
 import useStore from '../store';
+import useLoading from '../hooks/loading'
 
 const { fileStore } = useStore()
 fileStore.setFileData({ pageNum: 1, pageSize: 10 })
 
-const { fileData } = storeToRefs(fileStore)
+const { loading } = useLoading({ target: '.container' })
+
+// 根据取件码过滤
+const { fileData, fileSum } = storeToRefs(fileStore)
 const search = ref('')
 const filterData = computed(() =>
     fileData.value.filter(
@@ -40,6 +39,12 @@ const filterData = computed(() =>
             item.code.toString().includes(search.value)
     )
 )
+
+const switchPage = (pageNum) => {
+    loading(() => {
+        fileStore.setFileData({ pageNum, pageSize: 10 })
+    })
+}
 </script>
 
 <style lang="scss" scoped>
