@@ -1,15 +1,19 @@
 import { defineStore } from "pinia"
-import { getFileData } from '../../api/file'
+import { getFileList, getFileSum } from '../../api/file'
 
 export default defineStore('file', {
     state() {
         return {
-            fileData: []
+            fileData: [],
+            fileSum: 0
         }
     },
     actions: {
         async setFileData(data) {
-            this.fileData = await getFileData(data)
+            this.fileData = await getFileList(data)
+        },
+        async setFileSum() {
+            this.fileSum = await getFileSum()
         }
     },
     getters: {
