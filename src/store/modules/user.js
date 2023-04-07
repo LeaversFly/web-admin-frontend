@@ -1,15 +1,19 @@
 import { defineStore } from "pinia"
-import { getUserData } from '../../api/user'
+import { getUserData, getUserSum } from '../../api/user'
 
 export default defineStore('user', {
     state() {
         return {
-            userData: []
+            userData: [],
+            userSum: 0
         }
     },
     actions: {
-        async setUserData() {
-            this.userData = await getUserData()
+        async setUserData(data) {
+            this.userData = await getUserData(data)
+        },
+        async setUserSum() {
+            this.userSum = await getUserSum()
         }
     },
     getters: {
