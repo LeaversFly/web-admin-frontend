@@ -41,6 +41,7 @@ declare module '@vue/runtime-core' {
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Navbar: typeof import('./src/components/navbar.vue')['default']
     NavBar: typeof import('./src/components/NavBar.vue')['default']
+    Pagination: typeof import('./src/components/pagination.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./src/components/sidebar.vue')['default']

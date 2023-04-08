@@ -2,7 +2,7 @@
     <div class="row">
         <span class="row-item">
             <h3>用户信息
-                <el-divider direction="vertical" />总人数:{{ userData.length }}
+                <el-divider direction="vertical" />总人数:{{ userSum }}
             </h3>
             <el-table :data="userData" height="400" style="width: 100%;">
                 <el-table-column prop="id" label="用户id" width="180" />
@@ -61,12 +61,12 @@ echarts.use([
 ]);
 
 const { userStore, fileStore } = useStore()
-
-userStore.setUserData()
-fileStore.setFileSum()
+userStore.setUserData({ pageNum: 1, pageSize: 10 })
+userStore.setUserSum()
 fileStore.setFileData({ pageNum: 1, pageSize: 10 })
+fileStore.setFileSum()
 
-const { userData } = storeToRefs(userStore)
+const { userData, userSum } = storeToRefs(userStore)
 const { fileData, fileSum } = storeToRefs(fileStore)
 let xData = ref([])
 let yData = ref([])

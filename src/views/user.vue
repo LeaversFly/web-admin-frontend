@@ -23,26 +23,31 @@
             <el-table-column label="ip地址" prop="ip_addr" />
             <el-table-column align="right">
                 <template #header>
-                    <el-input v-model="search" size="small" placeholder="点击搜索...(id / ip地址)" />
+                    <el-input v-model="search" size="small" placeholder="根据 ip / id 检索..." />
                 </template>
             </el-table-column>
         </el-table>
-        <el-pagination background layout="prev, pager, next" :total="100" class="pagination" v-if="isShowPager" />
+        <el-pagination background layout="prev, pager, next" :total="userSum" class="pagination"
+            @current-change="switchPage" hide-on-single-page />
     </div>
 </template>
 
 <script setup>
-import { Edit } from '@element-plus/icons-vue'
 import { storeToRefs } from 'pinia';
 import useStore from '../store'
 import { updateRemainById } from '../api/user'
 import { messageBox } from '../utils/message';
+import useLoading from '../hooks/loading'
+
 
 const { userStore } = useStore()
-userStore.setUserData()
+userStore.setUserData({ pageNum: 1, pageSize: 10 })
+userStore.setUserSum()
+
+const { loading } = useLoading({ target: '.container' })
 
 // 根据关键词过滤
-const { userData } = storeToRefs(userStore)
+const { userData, userSum } = storeToRefs(userStore)
 const search = ref('')
 const filterData = computed(() =>
     userData.value.filter(
@@ -67,10 +72,6 @@ const isShowInput = computed(() =>
     (index) => isEdit.value && id.value === index
 )
 
-// 分页器
-const total = ref(11)
-const isShowPager = computed(() => total.value > 10)
-
 const handleMouseEnter = (e) => {
     hoverIndex.value = e.id
 }
@@ -90,6 +91,12 @@ const submit = async (id, remain) => {
     if (res) {
         messageBox({ message: '修改成功', type: 'success' })
     }
+}
+
+const switchPage = (pageNum) => {
+    loading(() => {
+        userStore.setUserData({ pageNum, pageSize: 10 })
+    })
 }
 </script>
 

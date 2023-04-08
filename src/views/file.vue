@@ -10,12 +10,12 @@
             <el-table-column label="有效性" prop="validity" />
             <el-table-column align="right">
                 <template #header>
-                    <el-input v-model="search" size="small" placeholder="点击搜索...(取件码)" />
+                    <el-input v-model="search" size="small" placeholder="根据取件码检索..." />
                 </template>
             </el-table-column>
         </el-table>
         <el-pagination background layout="prev, pager, next" :total="fileSum" class="pagination"
-            @current-change="switchPage" />
+            @current-change="switchPage" hide-on-single-page />
     </div>
 </template>
 
@@ -26,6 +26,7 @@ import useLoading from '../hooks/loading'
 
 const { fileStore } = useStore()
 fileStore.setFileData({ pageNum: 1, pageSize: 10 })
+fileStore.setFileSum()
 
 const { loading } = useLoading({ target: '.container' })
 
