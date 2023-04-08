@@ -16,7 +16,7 @@
     <div class="main">
       <div class="main-header">
         <div class="main-header-top">
-          <el-button type="primary" @click="isExpand = !isExpand" :icon="isExpand ? Expand : Fold" color="white"
+          <el-button type="primary" @click="isExpand = !isExpand" :icon="isExpand ? expandIcon : Fold" color="white"
             style="font-size:1.3em" text />
         </div>
         <div class="main-header-tags-wrapper">
@@ -41,8 +41,7 @@
 </template>
 
 <script setup>
-import { Promotion, Expand, Fold } from '@element-plus/icons-vue'
-
+const expandIcon = 'Expand'
 const isExpand = ref(true)
 </script>
 

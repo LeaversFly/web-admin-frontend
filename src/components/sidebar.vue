@@ -1,28 +1,16 @@
 <template>
     <el-menu :default-active="$route.path" class="el-menu-vertical-demo" router>
-        <el-menu-item index="/">
+        <el-menu-item v-for="item in routes" :key="item.path" :index="item.path">
             <el-icon>
-                <Odometer />
+                <component :is="item.meta.icon" />
             </el-icon>
-            <span v-if="isExpand">首页</span>
-        </el-menu-item>
-        <el-menu-item index="/user">
-            <el-icon>
-                <Avatar />
-            </el-icon>
-            <span v-if="isExpand">用户管理</span>
-        </el-menu-item>
-        <el-menu-item index="/file">
-            <el-icon>
-                <Files />
-            </el-icon>
-            <span v-if="isExpand">文件管理</span>
+            <span v-if="isExpand">{{ item.meta.title }}</span>
         </el-menu-item>
     </el-menu>
 </template>
 
 <script setup>
-import { Odometer, Avatar, Files } from '@element-plus/icons-vue'
+import routes from '../router/routes';
 
 const props = defineProps(['isExpand'])
 </script>
