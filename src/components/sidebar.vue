@@ -20,6 +20,8 @@ const props = defineProps(['isExpand'])
     border-right: none;
 
     .el-menu-item {
+        justify-content: center;
+
         background-color: #f8f8f8;
     }
 

@@ -16,7 +16,7 @@
     <div class="main">
       <div class="main-header">
         <div class="main-header-top">
-          <el-button type="primary" @click="isExpand = !isExpand" :icon="isExpand ? expandIcon : Fold" color="white"
+          <el-button type="primary" @click="isExpand = !isExpand" :icon="isExpand ? foldIcon : expandIcon" color="white"
             style="font-size:1.3em" text />
         </div>
         <div class="main-header-tags-wrapper">
@@ -42,6 +42,7 @@
 
 <script setup>
 const expandIcon = 'Expand'
+const foldIcon = 'Fold'
 const isExpand = ref(true)
 </script>
 
@@ -55,7 +56,7 @@ const isExpand = ref(true)
 }
 
 .sider {
-  width: 220px;
+  width: 120px;
   height: 100vh;
   position: relative;
 
