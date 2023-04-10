@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { getFileList, getFileSum } from '../../api/file'
+import { deleteAllFiles, getFileList, getFileSum } from '../../api/file'
 
 export default defineStore('file', {
     state() {
@@ -14,6 +14,12 @@ export default defineStore('file', {
         },
         async setFileSum() {
             this.fileSum = await getFileSum()
+        },
+        async deleteAllFile() {
+            let res = await deleteAllFiles().catch(err => {
+                return new Promise.reject(err)
+            })
+            return res
         }
     },
     getters: {

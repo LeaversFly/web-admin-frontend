@@ -11,3 +11,7 @@ export function getFileList(data) {
 export function getFileSum() {
     return axios.get('/file/sum')
 }
+
+export function deleteAllFiles() {
+    return axios.delete('/file/clear')
+}
