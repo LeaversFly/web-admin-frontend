@@ -110,10 +110,8 @@ const isExpand = ref(true)
     }
 
     .main-header-tags-wrapper {
-
-      background-color: lightsalmon;
       padding: 0 10px;
-
+      background-color: #ecf5ff;
 
       .main-header-tags {
         height: 36px;
