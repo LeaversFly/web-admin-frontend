@@ -1,4 +1,4 @@
-export default function useLoading({ target = document.body, fullscreen = false } = {}) {
+export function useLoading({ target = document.body, fullscreen = false } = {}) {
     const loadingInstance = ref(null)
 
     const loading = (callback) => {

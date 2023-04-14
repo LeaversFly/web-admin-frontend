@@ -10,7 +10,7 @@
 
 <script setup>
 import useStore from '../store'
-import { messageBox } from '../utils/message'
+import { messageBox } from '../utils'
 
 const { fileStore } = useStore()
 

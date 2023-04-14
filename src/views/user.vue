@@ -36,8 +36,8 @@
 import { storeToRefs } from 'pinia';
 import useStore from '../store'
 import { updateRemainById } from '../api/user'
-import { messageBox } from '../utils/message';
-import useLoading from '../hooks/loading'
+import { messageBox } from '../utils';
+import { useLoading } from '../hooks'
 
 
 const { userStore } = useStore()

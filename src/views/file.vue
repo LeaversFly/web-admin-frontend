@@ -22,7 +22,7 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import useStore from '../store';
-import useLoading from '../hooks/loading'
+import { useLoading } from '../hooks'
 
 const { fileStore } = useStore()
 fileStore.setFileData({ pageNum: 1, pageSize: 10 })
